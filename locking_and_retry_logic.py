@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding: utf-8
 from tenacity import retry, stop, wait, retry_if_exception_type, retry_if_exception_message
 from typing import List, Tuple, Callable, Any
 import pandas as pd
