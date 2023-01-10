@@ -10,6 +10,7 @@ WAIT_FIXED = 10 # 10 seconds
 from datetime import datetime
 from snowflake.snowpark.exceptions import SnowparkSQLException
 from snowflake.snowpark.dataframe import DataFrame
+from snowflake.snowpark.context import get_active_session
 import time
 import uuid
 
@@ -50,7 +51,7 @@ class A:
         after=log_retry_attempt_number
     )
     def acquire_lock_and_initiate(self, tracker_table_name: str, snow_df:DataFrame, constraint) -> DataFrame:
-        session = session.context.get_active_session()
+        session = get_active_session()
         start, end = self.obtain_start_and_end_timestamp_from_constraint(constraint)
         #mutex implementation to acquire lock on tracker_table_name table
         session.sql("ROLLBACK;").collect()
